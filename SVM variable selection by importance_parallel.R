@@ -1,5 +1,14 @@
+#Packages installation
+library(genalg)
+library(pls)
+library(e1071)
+library(kernlab)
+library(iml)
+library(devtools)
+
 pkgs <- c('foreach', 'doParallel')
 lapply(pkgs, require, character.only = T)
+#if you want to change the number of threads for the calculation, please change the value "detectCores()"
 registerDoParallel(makeCluster(detectCores()))
 
 #-----------pick up the file path--------------
@@ -71,12 +80,6 @@ multi.regression.x.test <- multi.regression.compounds.test[,-c(1)]
 #-----------transform into data frame--------------------------
 multi.regression.compounds.train <- as.data.frame(multi.regression.compounds.train)
 
-#-------------Installing SVM library---------------------------------
-library(e1071)
-library(kernlab)
-library(iml)
-library(devtools)
-
 #--------------------------variables elimination by importance threshold in SVM-------------------------------
 multi.regression.compounds.train.s.t <- cbind(preprocessed.y.train, multi.regression.x.train[,])
 multi.regression.x.train.s.t <- multi.regression.x.train[,]
@@ -120,7 +123,7 @@ result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
   out <- foreach(j = 1:max(df2$fold), .combine = rbind, .inorder = FALSE) %dopar% {
     deve <- df2[df2$fold != j, ]
     test <- df2[df2$fold == j, ]
-    mdl <- e1071::svm(preprocessed.y.train~., data = deve, cost = 2^c, gamma = 2^g, epsilon = 2^e)
+    mdl <- e1071::svm(preprocessed.y.train~., data = deve, cost = c, gamma = 2^g, epsilon = 2^e)
     pred <- predict(mdl, test)
     data.frame(test[, c(1)], pred)
   }

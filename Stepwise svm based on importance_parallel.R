@@ -1,5 +1,4 @@
-# another realistic example: wavelenght selection for PLS on NIR data
-## Not run:
+#Packages installation
 library(genalg)
 library(pls)
 library(e1071)
@@ -9,6 +8,7 @@ library(devtools)
 
 pkgs <- c('foreach', 'doParallel')
 lapply(pkgs, require, character.only = T)
+#if you want to change the number of threads for the calculation, please change the value "detectCores()"
 registerDoParallel(makeCluster(detectCores()))
 
 #-----------pick up the file path--------------
@@ -136,7 +136,7 @@ for(j in 1:(ncol(preprocessed.x) - 390)){
     out <- foreach(j = 1:max(df2$fold), .combine = rbind, .inorder = FALSE) %dopar% {
       deve <- df2[df2$fold != j, ]
       test <- df2[df2$fold == j, ]
-      mdl <- e1071::svm(preprocessed.y.train~., data = deve, cost = 2^c, gamma = 2^g, epsilon = 2^e)
+      mdl <- e1071::svm(preprocessed.y.train~., data = deve, cost = c, gamma = 2^g, epsilon = 2^e)
       pred <- predict(mdl, test)
       data.frame(test[, c(1)], pred)
     }
