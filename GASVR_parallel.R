@@ -90,7 +90,7 @@ Xtrain <- multi.regression.x.train.s.t
 ytrain <- preprocessed.y.train
 datasum <- as.data.frame(cbind(ytrain,Xtrain))
 
-numberOfWavelenghts = ncol(data0) - 1
+numberOfWavelenghts = ncol(Xtrain) - 1
 
 evaluateNIR <- function(chromosome=c()) {
   returnVal = 100
@@ -215,8 +215,22 @@ monitor <- function(obj) {
 }
 
 #GA
+itersinput = 20
+
 nir.results = rbga.bin(size=numberOfWavelenghts, zeroToOneRatio=10,
                        evalFunc=evaluateNIR, monitorFunc=monitor,
-                       popSize=20, iters= 20, verbose=TRUE)
+                       popSize=20, iters= itersinput, verbose=FALSE)
 
-nir.results
+plot(nir.results$best, ylim = c(0.02,0.07), ylab = "", lty = 2, type = "b")
+par(new=T)
+plot(nir.results$mean, ylim = c(0.02, 0.07), ylab = "MSECV", col = "blue", type = "b", pch = 2)
+
+res <- as.matrix(nir.results$population)
+res.is.not.0 <- res[c(itersinput), ] != 0
+
+#GA selected features
+multi.regression.compounds.train.s.t <- cbind(preprocessed.y.train, multi.regression.x.train[, res.is.not.0])
+multi.regression.x.train.s.t <- multi.regression.x.train[, res.is.not.0]
+multi.regression.compounds.test.s.t <- cbind(preprocessed.y.test,multi.regression.x.test[, res.is.not.0])
+multi.regression.x.test.s.t <- multi.regression.x.test[, res.is.not.0]
+
