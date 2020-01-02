@@ -127,7 +127,7 @@ evaluateNIR <- function(chromosome=c()) {
     gamma <- hakata - 21
     parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
     ### LOOP THROUGH PARAMETER VALUES ###
-    result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+    result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
       c <- parms[i, ]$cost
       g <- parms[i, ]$gamma
       e <- parms[i, ]$epsilon
@@ -149,7 +149,7 @@ evaluateNIR <- function(chromosome=c()) {
     parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
     parms
     ### LOOP THROUGH PARAMETER VALUES ###
-    result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+    result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
       c <- parms[i, ]$cost
       g <- parms[i, ]$gamma
       e <- parms[i, ]$epsilon
@@ -170,7 +170,7 @@ evaluateNIR <- function(chromosome=c()) {
     gamma <- c(-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10)
     parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
     ### LOOP THROUGH PARAMETER VALUES ###
-    result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+    result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
       c <- parms[i, ]$cost
       g <- parms[i, ]$gamma
       e <- parms[i, ]$epsilon
@@ -215,7 +215,7 @@ monitor <- function(obj) {
 }
 
 #GA
-itersinput = 20
+itersinput = 10
 
 nir.results = rbga.bin(size=numberOfWavelenghts, zeroToOneRatio=10,
                        evalFunc=evaluateNIR, monitorFunc=monitor,
@@ -234,3 +234,4 @@ multi.regression.x.train.s.t <- multi.regression.x.train[, res.is.not.0]
 multi.regression.compounds.test.s.t <- cbind(preprocessed.y.test,multi.regression.x.test[, res.is.not.0])
 multi.regression.x.test.s.t <- multi.regression.x.test[, res.is.not.0]
 
+View(multi.regression.x.train.s.t)

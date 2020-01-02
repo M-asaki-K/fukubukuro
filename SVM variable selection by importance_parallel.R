@@ -136,7 +136,7 @@ epsilon <- min(result[result[, c(4)] <= (min(result[,c(4)])), c(1)])
 cost <- c(-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10)
 parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
 ### LOOP THROUGH PARAMETER VALUES ###
-result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
   c <- parms[i, ]$cost
   g <- parms[i, ]$gamma
   e <- parms[i, ]$epsilon
@@ -157,7 +157,7 @@ cost <- min(result[(result[, c(4)] <= (min(result[,c(4)]))), c(2)])
 gamma <- c(-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10)
 parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
 ### LOOP THROUGH PARAMETER VALUES ###
-result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
   c <- parms[i, ]$cost
   g <- parms[i, ]$gamma
   e <- parms[i, ]$epsilon
@@ -186,7 +186,7 @@ imp$results
 plot(imp)
 
 #--------------------variable selection threshold by onesigma method------------------
-threshold <- min(imp$results[, c(3)]) + mean(imp$results[, c(4)] - imp$results[, c(2)]) / 3.92*4
+threshold <- min(imp$results[, c(3)]) + mean(imp$results[, c(4)] - imp$results[, c(2)]) / 3.92*3
 acq <- cbind(imp$results[, c(1)], imp$results[, c(3)])
 kamakura <- acq[acq[, c(2)] > threshold, c(1)]
 kamakura
@@ -227,7 +227,7 @@ kamakura
   gamma <- hakata - 21
   parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
   ### LOOP THROUGH PARAMETER VALUES ###
-  result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+  result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
     c <- parms[i, ]$cost
     g <- parms[i, ]$gamma
     e <- parms[i, ]$epsilon
@@ -248,7 +248,7 @@ kamakura
   cost <- c(-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10)
   parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
   ### LOOP THROUGH PARAMETER VALUES ###
-  result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+  result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
     c <- parms[i, ]$cost
     g <- parms[i, ]$gamma
     e <- parms[i, ]$epsilon
@@ -269,7 +269,7 @@ kamakura
   gamma <- c(-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10)
   parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
   ### LOOP THROUGH PARAMETER VALUES ###
-  result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+  result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
     c <- parms[i, ]$cost
     g <- parms[i, ]$gamma
     e <- parms[i, ]$epsilon
