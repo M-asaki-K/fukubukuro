@@ -115,7 +115,7 @@ hakata <- which.max(gam)
 gamma <- hakata - 21
 parms <- expand.grid(epsilon = epsilon, cost = cost, gamma = gamma)
 ### LOOP THROUGH PARAMETER VALUES ###
-result <- foreach(i = 1:nrow(parms), .combine = rbind) %do% {
+result <- foreach(i = 1:nrow(parms), .combine = rbind, .packages = c("foreach", "doParallel")) %dopar% {
   c <- parms[i, ]$cost
   g <- parms[i, ]$gamma
   e <- parms[i, ]$epsilon
