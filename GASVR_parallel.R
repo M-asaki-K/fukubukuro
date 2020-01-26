@@ -140,7 +140,7 @@ evaluateNIR <- function(chromosome=c()) {
         data.frame(test[, c(1)], pred)
       }
       ### CALCULATE SVM PERFORMANCE ###
-      roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+      roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
       data.frame(parms[i, ], roc)
     }
     
@@ -162,7 +162,7 @@ evaluateNIR <- function(chromosome=c()) {
         data.frame(test[, c(1)], pred)
       }
       ### CALCULATE SVM PERFORMANCE ###
-      roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+      roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
       data.frame(parms[i, ], roc)
     }
     
@@ -183,7 +183,7 @@ evaluateNIR <- function(chromosome=c()) {
         data.frame(test[, c(1)], pred)
       }
       ### CALCULATE SVM PERFORMANCE ###
-      roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+      roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
       data.frame(parms[i, ], roc)
     }
     
