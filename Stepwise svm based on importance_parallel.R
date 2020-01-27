@@ -141,7 +141,7 @@ for(j in 1:(ncol(preprocessed.x) - 390)){
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
@@ -162,7 +162,7 @@ for(j in 1:(ncol(preprocessed.x) - 390)){
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
@@ -183,7 +183,7 @@ for(j in 1:(ncol(preprocessed.x) - 390)){
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
@@ -212,7 +212,7 @@ for(j in 1:(ncol(preprocessed.x) - 390)){
   View(importance.cv)
 }
 
-write.csv(importance.cv, "C:/Users/uni21/OneDrive/デスクトップ/importance.csv")
+write.csv(importance.cv, "C:/Users/uni21/OneDrive/ﾂデﾂスﾂクﾂトﾂッﾂプ/importance.csv")
 
 #output the selected variables
 colnames(multi.regression.x.train.s)
