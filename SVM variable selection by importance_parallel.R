@@ -128,7 +128,7 @@ result <- foreach(i = 1:nrow(parms), .combine = rbind, .packages = c("foreach", 
     data.frame(test[, c(1)], pred)
   }
   ### CALCULATE SVM PERFORMANCE ###
-  roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+  roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
   data.frame(parms[i, ], roc)
 }
 
@@ -149,7 +149,7 @@ result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
     data.frame(test[, c(1)], pred)
   }
   ### CALCULATE SVM PERFORMANCE ###
-  roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+  roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
   data.frame(parms[i, ], roc)
 }
 
@@ -170,7 +170,7 @@ result <- foreach(i = 1:nrow(parms), .combine = rbind) %dopar% {
     data.frame(test[, c(1)], pred)
   }
   ### CALCULATE SVM PERFORMANCE ###
-  roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+  roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
   data.frame(parms[i, ], roc)
 }
 
@@ -240,7 +240,7 @@ kamakura
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
@@ -261,7 +261,7 @@ kamakura
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
@@ -282,7 +282,7 @@ kamakura
       data.frame(test[, c(1)], pred)
     }
     ### CALCULATE SVM PERFORMANCE ###
-    roc <- sum((out[, c(1)] - out[, c(2)])^2) / ncol(datasum)
+    roc <- sum((out[, c(1)] - out[, c(2)])^2) / nrow(datasum)
     data.frame(parms[i, ], roc)
   }
   
